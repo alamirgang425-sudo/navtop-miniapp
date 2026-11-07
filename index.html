@@ -57,7 +57,7 @@ button{font:inherit;color:inherit}
 .tabs .count{font:500 11px var(--mono);margin-left:6px;padding:1px 6px;border-radius:6px;background:var(--lime);color:#0F1F17}
 .themebtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);cursor:pointer;display:grid;place-items:center;transition:transform .4s var(--ease)}
 .themebtn:hover{transform:rotate(25deg)}
-@media (max-width:640px){.tabs{order:3;width:100%}.tabs button{flex:1;padding:8px 6px;font-size:13px}}
+@media (max-width:640px){.tabs{order:3;width:100%}.tabs button{flex:1 0 auto;padding:8px 10px;font-size:13px}}
 .hero{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:end;padding-block:28px 8px;isolation:isolate}
 .hero .glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(60px);opacity:var(--glow-a);pointer-events:none;background:var(--lime)}
 .hero .g1{width:340px;height:120px;right:-60px;top:30%;animation:breathe 7s ease-in-out infinite}
@@ -277,6 +277,53 @@ html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}
 @keyframes shim{to{background-position:-150% 0}}
 .err{padding:22px;border:1px dashed var(--line-2);border-radius:22px;color:var(--muted);display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .tg .themebtn{display:none}
+.ureg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:14px}
+.ureg::-webkit-scrollbar{display:none}
+.ureg .chip{white-space:nowrap}
+@media (min-width:900px){.ureg{flex-wrap:wrap;overflow:visible}}
+.ufil{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px}
+.ufil .fld{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.sel{appearance:none;-webkit-appearance:none;width:100%;background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236B7F67' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center;border:1px solid var(--line);border-radius:14px;padding:12px 38px 12px 14px;color:var(--fg);font:500 15px var(--body)}
+.sel:focus{outline:none;border-color:var(--lime)}
+.usum{font:500 13px var(--mono);color:var(--muted);margin:4px 0 14px;font-variant-numeric:tabular-nums}
+.callout{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--panel);border:1px dashed var(--line-2);border-radius:20px;padding:14px 16px;margin-bottom:16px}
+.callout p{margin:0;max-width:52ch;font-size:14px;color:var(--muted)}
+.callout b{color:var(--fg)}
+.callout .btn{flex:none;padding:11px 16px;font-size:14px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-flow:dense;gap:8px}
+.dist{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px 14px;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s var(--ease),background .2s}
+.dist:hover{border-color:var(--line-2);transform:translateY(-1px)}
+.dist[aria-expanded="true"]{border-color:var(--lime);background:var(--panel-2)}
+.dist span{font-weight:600;font-size:14.5px;min-width:0;overflow-wrap:anywhere}
+.dist em{flex:none;font:500 12px var(--mono);font-style:normal;padding:2px 9px;border-radius:999px;background:var(--bg-2);color:var(--muted)}
+.dist em.on{background:var(--lime);color:#0F1F17}
+.dpanel{grid-column:1/-1;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px;animation:rise .4s var(--ease)}
+.dpanel>h4{margin:2px 2px 0;font:700 15px var(--display)}
+.seller{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:9px}
+.seller h5{margin:3px 0 0;font:700 17px/1.2 var(--display);letter-spacing:-.01em}
+.seller .addr{color:var(--muted);font-size:13px}
+.seller p{margin:0;font-size:14px}
+.kind{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:8px}
+.cbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--bg-2);border-radius:12px;padding:9px 12px;font:500 14px var(--mono);color:var(--fg);text-decoration:none;cursor:pointer;min-height:40px}
+.cbtn:hover{border-color:var(--lime)}
+.vchips{display:flex;flex-wrap:wrap;gap:5px}
+.vchip{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--panel-2);color:var(--fg)}
+.vchip.hit{background:var(--lime);color:#0F1F17}
+.dempty{color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.linkbtn{background:none;border:0;padding:0;color:var(--fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:600 14px var(--body)}
+.sform{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.sform label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.sform input,.sform textarea{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 12px;color:var(--fg);font:500 15px var(--body)}
+.sform input:focus,.sform textarea:focus{outline:none;border-color:var(--lime)}
+.sform .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:420px){.sform .two{grid-template-columns:minmax(0,1fr)}}
+.vpick{max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:6px 10px 10px;display:flex;flex-direction:column;gap:2px;background:var(--panel)}
+.vpick strong{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.vpick label{flex-direction:row;align-items:center;gap:10px;color:var(--fg);font-size:14px;padding:4px 0}
+.vpick input{width:18px;height:18px;accent-color:var(--leaf)}
+.ferr{color:var(--bad);font-size:13.5px;min-height:1em}
+.fnote{font-size:13px;color:var(--muted);background:var(--panel);border-radius:12px;padding:10px 12px}
 </style>
 </head>
 <body>
@@ -291,6 +338,7 @@ html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}
 <button data-tab="tanla" aria-current="page">Nav tanlash</button>
 <button data-tab="katalog">Katalog</button>
 <button data-tab="taqqos">Taqqoslash</button>
+<button data-tab="urug">Qayerdan olish</button>
 <button data-tab="saqla">Saqlangan<span class="count" id="savedCount" hidden></span></button>
 </nav>
 <button class="themebtn" id="themeBtn" aria-label="Yorug' yoki qorong'i rejim"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
@@ -320,6 +368,7 @@ html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}
 </section>
 <section id="v-katalog" class="view" hidden><div class="wrap" id="katalog"></div></section>
 <section id="v-taqqos" class="view" hidden><div class="wrap" id="taqqos"></div></section>
+<section id="v-urug" class="view" hidden><div class="wrap" id="urug"></div></section>
 <section id="v-saqla" class="view" hidden><div class="wrap" id="saqla"></div></section>
 </main>
 <footer><div class="wrap">NavTop MVP · ko'rsatkichlar namunaviy, ekishdan oldin Davlat reyestri va agronom bilan tekshiring.</div></footer>
@@ -351,8 +400,9 @@ const r=await fetch(SB_URL+"/functions/v1/tg",{method:"POST",headers:{apikey:SB_
 const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||("API "+r.status));return j;
 }
 async function loadData(){
-const [regions,crops,vars]=await Promise.all([rest("regions?select=name,zone_id&order=id"),rest("crops?select=name&order=sort"),rest("varieties?select=*&order=crop,id")]);
+const [regions,crops,vars]=await Promise.all([rest("regions?select=id,name,zone_id&order=id"),rest("crops?select=name&order=sort"),rest("varieties?select=*&order=crop,id")]);
 REGIONS=Object.fromEntries(regions.map(r=>[r.name,r.zone_id]));
+RID=Object.fromEntries(regions.map(r=>[r.name,r.id]));
 CROPS=crops.map(c=>c.name);
 V=vars.map(v=>({id:v.id,c:v.crop,n:v.name,o:v.origin,t:v.type,salt:v.salt,drought:v.drought,dis:v.disease,days:v.days,y:Number(v.yield_t_ha),z:v.zones,d:v.description}));
 }
@@ -518,18 +568,18 @@ $("#layer").innerHTML=`<div class="scrim" id="scrim"><aside class="drawer" role=
 <div class="dsec"><span class="lbl">Chidamlilik</span>${bar("Sho'rlanishga",v.salt,0)}${bar("Qurg'oqchilikka",v.drought,1)}${bar("Kasalliklarga",v.dis,2)}</div>
 <div class="dsec"><span class="lbl">${esc(S.region)} sharoitida</span><ul class="why">${why.map(([t,i,w],k)=>`<li style="--i:${k}"><span class="ic ${t}">${i}</span>${esc(w)}</li>`).join("")}</ul></div>
 <div class="dsec"><span class="lbl">Tavsiya etilgan zonalar</span><div class="summary">${v.z.map(z=>`<span class="pill" style="cursor:default">${ZONE[z][0]}</span>`).join("")}</div></div>
-<div class="stepnav" style="margin-top:24px"><button class="btn pri" data-star="${esc(key(v))}" id="dSave">${isSaved(v)?"Saqlanganlardan olib tashlash":"Navni saqlash"}</button></div>
+<div class="stepnav" style="margin-top:24px;flex-wrap:wrap"><button class="btn pri" data-star="${esc(key(v))}" id="dSave">${isSaved(v)?"Saqlanganlardan olib tashlash":"Navni saqlash"}</button><button class="btn ghost" data-where="${v.id}">${PIN} Qayerdan olish</button></div>
 </aside></div>`;
 countUp($("#layer"));$("#closeD").focus();
 }
 function closeDrawer(){const sc=$("#scrim");if(!sc)return;sc.classList.add("out");setTimeout(()=>{$("#layer").innerHTML=""},260)}
 function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2300)}
-function moveInd(){const b=$(`#tabs button[data-tab="${S.tab}"]`),ind=$("#tabs .ind");if(!b)return;ind.style.left=b.offsetLeft+"px";ind.style.width=b.offsetWidth+"px"}
+function moveInd(){const b=$(`#tabs button[data-tab="${S.tab}"]`),ind=$("#tabs .ind");if(!b)return;ind.style.left=b.offsetLeft+"px";ind.style.width=b.offsetWidth+"px";const t=$("#tabs");if(t.scrollWidth>t.clientWidth)t.scrollTo({left:b.offsetLeft-(t.clientWidth-b.offsetWidth)/2,behavior:"smooth"})}
 function updateCount(){const c=$("#savedCount");c.hidden=!saved.length;c.textContent=saved.length}
 function showTab(t){
 S.tab=t;document.querySelectorAll("#tabs button").forEach(b=>b.dataset.tab===t?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
-["tanla","katalog","taqqos","saqla"].forEach(n=>{const el=$("#v-"+n);el.hidden=n!==t;if(n===t&&n!=="tanla"){el.classList.remove("enter");void el.offsetWidth;el.classList.add("enter")}});
-if(t==="katalog")renderKatalog();if(t==="taqqos")renderTaqqos();if(t==="saqla")renderSaqla();
+["tanla","katalog","taqqos","urug","saqla"].forEach(n=>{const el=$("#v-"+n);el.hidden=n!==t;if(n===t&&n!=="tanla"){el.classList.remove("enter");void el.offsetWidth;el.classList.add("enter")}});
+if(t==="katalog")renderKatalog();if(t==="taqqos")renderTaqqos();if(t==="saqla")renderSaqla();if(t==="urug")renderUrug();
 moveInd();window.scrollTo({top:0,behavior:"smooth"});
 }
 let advTimer;
@@ -603,6 +653,107 @@ function showLoading(){
 $("#cond").innerHTML='<div class="skel" style="height:360px"></div>';
 $("#results").innerHTML='<div class="skel" style="height:56px"></div><div class="skel" style="height:300px"></div><div class="skel" style="height:64px"></div><div class="skel" style="height:64px"></div>';
 }
+let RID={},DIST=[],SELLERS=[],UST="loading";
+const KIND={dokon:"Urug' do'koni",xojalik:"Urug'chilik xo'jaligi",institut:"Ilmiy-tadqiqot instituti",klaster:"Klaster",kochatxona:"Ko'chatxona",boshqa:"Boshqa"};
+const PIN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+const PHONE='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>';
+const SEND='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L3 10.5l7 2.5 2.5 7z"/><path d="M10 13l11-10"/></svg>';
+S.ureg=null;S.uvar=0;S.udist=null;
+async function loadSellers(){
+UST="loading";
+try{
+const [d,s]=await Promise.all([rest("districts?select=id,region_id,name&order=name"),rest("sellers?select=id,name,kind,district_id,address,phone,telegram,note,seller_varieties(variety_id)&verified=eq.true&order=name")]);
+DIST=d.map(x=>({id:x.id,region:x.region_id,name:x.name}));
+SELLERS=s.map(x=>({...x,vids:(x.seller_varieties||[]).map(r=>r.variety_id)}));
+UST="ok";
+}catch(e){UST="err"}
+if(S.tab==="urug")renderUrug();
+}
+const distName=id=>{const d=DIST.find(x=>x.id===id);return d?d.name:""};
+function sellerCard(x){
+const vs=x.vids.map(id=>V.find(v=>v.id===id)).filter(Boolean);
+const tgU=x.telegram?String(x.telegram).replace(/^@/,""):"";
+return `<article class="seller">
+<div><span class="kind">${esc(KIND[x.kind]||"Sotuvchi")}</span><h5>${esc(x.name)}</h5><div class="addr">${esc(distName(x.district_id))}${x.address?" · "+esc(x.address):""}</div></div>
+${x.note?`<p>${esc(x.note)}</p>`:""}
+<div class="contact">${x.phone?`<button class="cbtn" data-copy="${esc(x.phone)}" aria-label="Raqamni nusxalash: ${esc(x.phone)}">${PHONE}${esc(x.phone)}</button>`:""}${tgU?`<a class="cbtn" href="https://t.me/${encodeURIComponent(tgU)}" target="_blank" rel="noopener" data-tglink="${esc(tgU)}">${SEND}@${esc(tgU)}</a>`:""}</div>
+${vs.length?`<div class="vchips">${vs.map(v=>`<span class="vchip ${v.id===S.uvar?"hit":""}">${esc(v.c)}: ${esc(v.n)}</span>`).join("")}</div>`:""}
+</article>`;
+}
+function renderUrug(){
+if(!S.ureg||!RID[S.ureg])S.ureg=S.region;
+const head=`<div class="vhead"><span class="eyebrow">Urug' xaritasi</span><h1>Navni qayerdan olish</h1><p>Viloyat va tumanni tanlang. Tasdiqlangan urug' do'konlari, urug'chilik xo'jaliklari va institutlar ko'rsatiladi.</p></div>`;
+if(UST!=="ok"){
+$("#urug").innerHTML=head+(UST==="err"?`<div class="err"><b style="color:var(--fg)">Sotuvchilar yuklanmadi</b>Internet aloqasini tekshirib, qayta urinib ko'ring.<button class="btn pri" style="flex:none" data-ureload>Qayta yuklash</button></div>`:`<div class="dgrid">${Array.from({length:8},()=>'<div class="skel" style="height:50px"></div>').join("")}</div>`);
+return;
+}
+const rid=RID[S.ureg],dists=DIST.filter(d=>d.region===rid);
+const match=x=>!S.uvar||x.vids.includes(S.uvar);
+const by={};SELLERS.filter(match).forEach(x=>{(by[x.district_id]=by[x.district_id]||[]).push(x)});
+const total=dists.reduce((a,d)=>a+((by[d.id]||[]).length),0);
+const v=S.uvar?V.find(x=>x.id===S.uvar):null;
+const opts=`<option value="0">Barcha navlar</option>`+CROPS.map(c=>`<optgroup label="${esc(c)}">${V.filter(x=>x.c===c).map(x=>`<option value="${x.id}" ${x.id===S.uvar?"selected":""}>${esc(x.n)}</option>`).join("")}</optgroup>`).join("");
+const cells=dists.map(d=>{
+const list=by[d.id]||[],open=S.udist===d.id;
+let h=`<button class="dist" data-dist="${d.id}" aria-expanded="${open}"><span>${esc(d.name)}</span><em class="${list.length?"on":""}">${list.length}</em></button>`;
+if(open)h+=`<div class="dpanel"><h4>${esc(/tumani$/.test(d.name)?d.name:d.name+" tumani")}${v?` · ${esc(v.n)}`:""}</h4>${list.length?list.map(sellerCard).join(""):`<div class="dempty"><span>Bu tumanda ${v?"bu nav bilan ":""}hali tasdiqlangan sotuvchi yo'q.</span><button class="linkbtn" data-addseller="${d.id}">Sotuvchini taklif qilish</button></div>`}</div>`;
+return h;
+}).join("");
+$("#urug").innerHTML=head+`
+<div class="ureg" role="group" aria-label="Viloyat">${Object.keys(REGIONS).map(r=>`<button class="chip" data-ureg="${esc(r)}" aria-pressed="${r===S.ureg}">${esc(r)}</button>`).join("")}</div>
+<div class="ufil"><div class="fld"><label class="lbl" for="uvar" style="margin:0">Nav bo'yicha saralash</label><select id="uvar" class="sel">${opts}</select></div></div>
+<div class="usum">${esc(S.ureg)} · ${dists.length} ta tuman · ${total} ta sotuvchi${v?` · “${esc(v.n)}” navi bor`:""}</div>
+<div class="callout"><p>${total?`<b>Ro'yxatda yo'q sotuvchini bilasizmi?</b> Taklif qiling, tekshiruvdan keyin qo'shiladi.`:`<b>${esc(S.ureg)}da ${v?"bu nav bo'yicha ":""}hali tasdiqlangan sotuvchi yo'q.</b> Urug' do'koni, xo'jalik yoki institutni bilsangiz, taklif qiling.`}</p><button class="btn pri" data-addseller="0">${PIN} Sotuvchini taklif qilish</button></div>
+<div class="dgrid">${cells}</div>`;
+}
+function districtOptions(region,sel){return DIST.filter(d=>d.region===RID[region]).map(d=>`<option value="${d.id}" ${d.id===sel?"selected":""}>${esc(d.name)}</option>`).join("")}
+function openSellerForm(did){
+const d=DIST.find(x=>x.id===did);
+const reg=d?Object.keys(RID).find(k=>RID[k]===d.region):(S.ureg||S.region);
+$("#layer").innerHTML=`<div class="scrim" id="scrim"><aside class="drawer" role="dialog" aria-modal="true" aria-label="Sotuvchini taklif qilish">
+<div class="dtop"><span class="eyebrow">Urug' xaritasi</span><button class="x" id="closeD" aria-label="Yopish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<h2>Sotuvchini taklif qilish</h2>
+<p style="margin:8px 0 0;color:var(--muted)">Ma'lumot tekshirilgandan keyin ilovada chiqadi.</p>
+${IN_TG?"":`<div class="fnote" style="margin-top:12px">Taklif yuborish Telegram ichida ishlaydi: @nav_top1_bot orqali oching.</div>`}
+<form class="sform" id="sf" novalidate>
+<label>Nomi<input id="sfName" maxlength="120" required placeholder="Masalan: Hosil urug' do'koni"></label>
+<label>Turi<select id="sfKind" class="sel">${Object.entries(KIND).map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join("")}</select></label>
+<div class="two"><label>Viloyat<select id="sfReg" class="sel">${Object.keys(RID).map(r=>`<option ${r===reg?"selected":""}>${esc(r)}</option>`).join("")}</select></label>
+<label>Tuman<select id="sfDist" class="sel">${districtOptions(reg,did)}</select></label></div>
+<label>Manzil<input id="sfAddr" maxlength="200" placeholder="Ko'cha, mo'ljal"></label>
+<div class="two"><label>Telefon<input id="sfPhone" type="tel" maxlength="40" placeholder="+998 __ ___ __ __"></label>
+<label>Telegram<input id="sfTg" maxlength="64" placeholder="@username"></label></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted)">Qaysi navlar sotiladi</span><div class="vpick">${CROPS.map(c=>`<strong>${esc(c)}</strong>${V.filter(x=>x.c===c).map(x=>`<label><input type="checkbox" name="sfv" value="${x.id}" ${x.id===S.uvar?"checked":""}>${esc(x.n)}</label>`).join("")}`).join("")}</div></div>
+<label>Izoh<textarea id="sfNote" rows="2" maxlength="300" placeholder="Ish vaqti, narx, yetkazib berish"></textarea></label>
+<div class="ferr" id="sfErr" role="alert"></div>
+<button class="btn pri" type="submit" id="sfBtn" ${IN_TG?"":"disabled"}>Yuborish</button>
+</form>
+</aside></div>`;
+$("#sfName").focus();updateBack();haptic("light");
+}
+async function submitSeller(){
+const err=$("#sfErr"),btn=$("#sfBtn");err.textContent="";
+const seller={name:$("#sfName").value,kind:$("#sfKind").value,district_id:+$("#sfDist").value,address:$("#sfAddr").value,phone:$("#sfPhone").value,telegram:$("#sfTg").value,note:$("#sfNote").value,variety_ids:[...document.querySelectorAll('input[name="sfv"]:checked')].map(i=>+i.value)};
+if(seller.name.trim().length<2){err.textContent="Sotuvchi nomini kiriting.";$("#sfName").focus();return}
+if(!seller.phone.trim()&&!seller.telegram.trim()){err.textContent="Telefon raqami yoki Telegram manzilini kiriting.";$("#sfPhone").focus();return}
+btn.disabled=true;btn.textContent="Yuborilmoqda…";
+try{await api("submit_seller",{seller});closeDrawer();toast("Rahmat! Taklif tekshiruvga yuborildi");haptic("success")}
+catch(e){err.textContent=e.message||"Yuborib bo'lmadi. Qayta urinib ko'ring.";btn.disabled=false;btn.textContent="Yuborish";haptic("error")}
+}
+document.addEventListener("click",e=>{
+const r=e.target.closest("[data-ureg]");if(r){S.ureg=r.dataset.ureg;S.udist=null;renderUrug();haptic("select");return}
+const d=e.target.closest("[data-dist]");if(d){const id=+d.dataset.dist;S.udist=S.udist===id?null:id;renderUrug();haptic("select");return}
+const a=e.target.closest("[data-addseller]");if(a){openSellerForm(+a.dataset.addseller||S.udist);return}
+const w=e.target.closest("[data-where]");if(w){const id=+w.dataset.where;closeDrawer();S.uvar=id;S.ureg=S.region;S.udist=null;showTab("urug");return}
+const c=e.target.closest("[data-copy]");if(c){const t=c.dataset.copy;Promise.resolve().then(()=>navigator.clipboard.writeText(t)).then(()=>toast("Raqam nusxalandi: "+t)).catch(()=>{const rg=document.createRange();rg.selectNodeContents(c);const sl=getSelection();sl.removeAllRanges();sl.addRange(rg);toast("Raqamni belgilab nusxalang")});haptic("light");return}
+const l=e.target.closest("[data-tglink]");if(l&&IN_TG){e.preventDefault();try{tg.openTelegramLink("https://t.me/"+l.dataset.tglink)}catch(err){location.href=l.href}return}
+if(e.target.closest("[data-ureload]")){loadSellers();renderUrug()}
+});
+document.addEventListener("change",e=>{
+if(e.target.id==="uvar"){S.uvar=+e.target.value;renderUrug()}
+if(e.target.id==="sfReg"){$("#sfDist").innerHTML=districtOptions(e.target.value,null)}
+});
+document.addEventListener("submit",e=>{if(e.target.id==="sf"){e.preventDefault();submitSeller()}});
 async function boot(){
 if(IN_TG){document.body.classList.add("tg");tg.ready();tg.expand();applyTgTheme();tg.onEvent("themeChanged",applyTgTheme);tg.BackButton.onClick(onBack);
 try{tg.disableVerticalSwipes&&tg.disableVerticalSwipes()}catch(e){}}
@@ -612,7 +763,7 @@ $("#results").innerHTML='<div class="err"><b style="color:var(--fg)">Navlar yukl
 if(!REGIONS[S.region])S.region=Object.keys(REGIONS)[0];
 if(!CROPS.includes(S.crop))S.crop=CROPS[0];
 saved=saved.filter(k=>byKey(k));
-buildField();renderCond();renderResults();updateCount();moveInd();
+buildField();renderCond();renderResults();updateCount();moveInd();loadSellers();
 if(IN_TG){
 const u=tg.initDataUnsafe&&tg.initDataUnsafe.user;
 if(u&&u.first_name)document.querySelector(".hero .eyebrow").textContent="Salom, "+u.first_name+"!";
