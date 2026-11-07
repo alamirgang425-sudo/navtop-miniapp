@@ -381,6 +381,29 @@ html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}
 .sech{font:700 20px var(--display);letter-spacing:-.02em;margin:0 0 12px}
 .langbtn{height:40px;min-width:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);cursor:pointer;font:600 12px var(--mono);letter-spacing:.06em;color:var(--fg)}
 .langbtn:hover{border-color:var(--lime)}
+html{overflow-x:clip}
+.wxcard{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.wxh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.wxh h4{margin:0;font:700 15px var(--display)}
+.wxdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.wxd{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--bg-2);border-radius:14px;padding:8px 2px;font-size:12px;color:var(--muted);text-align:center}
+.wxd b{font:500 14px var(--mono);color:var(--fg)}
+.wxd .lo{font:500 12px var(--mono)}
+.wxd .pr{font:500 11px var(--mono);color:var(--sage)}
+.wxd.frost b,.wxd.frost .lo{color:#7FB3E0}
+.wxd.heat b{color:var(--bad)}
+.wxd.today{outline:1px solid var(--line-2)}
+.wxw{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.wxw li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:13.5px;align-items:start}
+.wxw li p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.wxw .ic{width:22px;height:22px}
+.wxsrc{font-size:11.5px;color:var(--muted)}
+.soilcard{background:var(--panel);border:1px dashed var(--line-2);border-radius:20px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.soilcard h4{margin:0;font:700 15px var(--display)}
+.soilsum{display:flex;flex-wrap:wrap;gap:6px}
+.soilbtn{margin-top:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.soilbtn small{color:var(--muted);font:500 12px var(--mono)}
+@media (max-width:420px){.wxdays{gap:4px}.wxd{padding:7px 0;font-size:11px}.wxd b{font-size:13px}}
 </style>
 </head>
 <body>
@@ -542,7 +565,7 @@ if(st===2){const p=S.salt/3*100;body=`<p class="q">Dala sharoiti qanday?</p><p c
 <label class="lbl" for="salt">Tuproq sho'rlanishi</label>
 <div class="slider"><input type="range" id="salt" min="0" max="3" step="1" value="${S.salt}" style="--p:${p}%" aria-valuetext="${SALT[S.salt]}"></div>
 <div class="ticks">${SALT.map((s,i)=>`<span class="${i===S.salt?"on":""}">${s}</span>`).join("")}</div>
-<div class="hint" id="saltHint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>${SALT_HINT[S.salt]}</span></div>
+<div class="hint" id="saltHint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>${SALT_HINT[S.salt]}</span></div>${soilBtn()}
 <span class="lbl">Suv bilan ta'minlanish</span>
 <div class="seg" id="waterSeg"><span class="ind" style="transform:translateX(${WATER.findIndex(w=>w[0]===S.water)*100}%)"></span>${WATER.map(([v,l])=>`<button data-set="water" data-val="${v}" aria-pressed="${v===S.water}">${l}</button>`).join("")}</div>`}
 if(st===3){body=`<p class="q">Siz uchun eng muhimi nima?</p><p class="qsub">Maqsad navlar orasidagi tartibni o'zgartiradi.</p>
@@ -559,6 +582,7 @@ const water=WATER.find(w=>w[0]===S.water)[1],goal=GOALS.find(g=>g[0]===S.goal)[1
 $("#results").innerHTML=`
 <div class="rhead rv"><div><span class="eyebrow">Natija · ${r.length} ta nav saralandi</span><h2>${esc(S.crop)} uchun eng mos navlar</h2></div>
 <div class="summary">${[[0,S.region],[1,S.crop],[2,SALT[S.salt]+" sho'r"],[2,water+" suv"],[3,goal]].map(([s,t])=>`<button class="pill" data-step="${s}">${esc(t)}</button>`).join("")}<button class="pill" data-sharev="${b.v.id}">${SHARE} Ulashish</button></div></div>
+<div id="wx" class="rv" style="--i:1"></div>${soilCard()}
 <article class="best rv" style="--i:1" data-open="${esc(key(b.v))}" tabindex="0" role="button" aria-label="${esc(b.v.n)} batafsil">
 <div>
 <span class="badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>Eng mos nav</span>
@@ -576,7 +600,7 @@ $("#results").innerHTML=`
 <div class="meter"><i style="width:${x.s}%;background:${tone(x.s)};--i:${i}"></i></div>
 <b class="rs">${x.s}%</b>${starBtn(x.v)}</li>`).join("")}</ol>
 <div class="note rv" style="--i:${rest.length+3}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Bu MVP namunaviy ma'lumot bilan ishlaydi. Hosildorlik va chidamlilik taxminiy; ekishdan oldin Davlat reyestri va mahalliy agronom bilan tekshiring.</div>`;
-countUp($("#results"));updateFloat(b);
+countUp($("#results"));updateFloat(b);fillWeather();
 }
 const dots=n=>`<span class="dots">${[0,1,2].map(i=>`<i class="${i<n?"on":""}"></i>`).join("")}</span>`;
 function tile(v,i){return `<div class="tile rv" style="--i:${i}" data-open="${esc(key(v))}" tabindex="0" role="button">
@@ -1143,8 +1167,141 @@ if(!l){const lc=IN_TG&&tg.initDataUnsafe&&tg.initDataUnsafe.user&&tg.initDataUns
 setLang(l,false);
 }
 document.addEventListener("click",e=>{if(e.target.closest("#langBtn")){const i=LANGS.indexOf(LANG);setLang(LANGS[(i+1)%LANGS.length],true);haptic("select")}});
+Object.assign(ICON,{
+"Sholi":'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 29c0-9 4-16 12-22"/><path d="M14 18c-2-1-4-3-4-6M17 13c-2-1-3-3-3-6M20 9c1-2 3-3 5-3M17 16c2 0 4-1 5-3M21 11c2 0 4 0 5 1"/></svg>',
+"Makkajo'xori":'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 4c4 0 6 5 6 12s-2 12-6 12-6-5-6-12 2-12 6-12z"/><path d="M13 10h6M12.5 15h7M12.5 20h7M10 24c-3-1-5-4-5-8M22 24c3-1 5-4 5-8"/></svg>',
+"Qovun":'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="16" cy="17" rx="11" ry="8"/><path d="M8 13c3 2 3 6 0 8M14 10c2 3 2 11 0 14M20 10c-2 3-2 11 0 14M24 13c-3 2-3 6 0 8M16 9V5"/></svg>',
+"Tarvuz":'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="17" r="11"/><path d="M11 7c3 5 3 15 0 20M16 6v22M21 7c-3 5-3 15 0 20M16 6c1-2 3-3 5-3"/></svg>'
+});
+Object.assign(I18,{
+"Sholi":["Рис","Shalı"],"Makkajo'xori":["Кукуруза","Mákke"],"Qovun":["Дыня","Qawın"],"Tarvuz":["Арбуз","Qarbız"],"AQSh":["США","AQSh"],
+"Ertapishar, sho'rlangan sholikorlik yerlariga mos.":["Раннеспелый, подходит для засолённых рисовых полей.","Erte pisetuǵın, duzlanǵan shalı jerlerine qolaylı."],
+"Yuqori hosilli, don sifati yaxshi.":["Высокоурожайный, хорошее качество зерна.","Joqarı ónimli, dán sapası jaqsı."],
+"Tez pishadi, takroriy ekin sifatida ham ekiladi.":["Быстро созревает, подходит и как повторная культура.","Tez pisedi, qaytalama egin sıpatında da egiledi."],
+"Don uchun yuqori hosilli duragay.":["Высокоурожайный гибрид на зерно.","Dán ushın joqarı ónimli gibrid."],
+"Issiq va suv tanqisligiga nisbatan chidamli.":["Относительно устойчив к жаре и нехватке воды.","Issılıq hám suw jetispewshiligine salıstırmalı shıdamlı."],
+"Ertapishar, takroriy ekin sifatida mos.":["Раннеспелый, подходит как повторная культура.","Erte pisetuǵın, qaytalama egin sıpatında qolaylı."],
+"Qishki qovun, uzoq saqlanadi.":["Зимняя дыня, долго хранится.","Qıslıq qawın, uzaq saqlanadı."],
+"Ertapishar, shirin, yozgi iste'mol uchun.":["Раннеспелая, сладкая, для летнего потребления.","Erte pisetuǵın, shiyrin, jazǵı tutınıw ushın."],
+"Yirik mevali, tashishga chidamli.":["Крупноплодная, хорошо переносит транспортировку.","Iri miyweli, tasıwǵa shıdamlı."],
+"Issiqqa chidamli, mevasi xushbo'y.":["Жаростойкая, ароматные плоды.","Issılıqqa shıdamlı, miywesi xosh iyisli."],
+"Keng tarqalgan, tashishga chidamli.":["Широко распространён, хорошо переносит транспортировку.","Keń tarqalǵan, tasıwǵa shıdamlı."],
+"Ertapishar, mevasi kichik va shirin.":["Раннеспелый, плоды небольшие и сладкие.","Erte pisetuǵın, miywesi kishi hám shiyrin."],
+"Yuqori hosilli, fuzariozga chidamli.":["Высокоурожайный, устойчив к фузариозу.","Joqarı ónimli, fuzariozǵa shıdamlı."],
+"1 – 20 may":["1 – 20 мая","1 – 20 may"],"15 aprel – 10 may":["15 апреля – 10 мая","15 aprel – 10 may"],"15 aprel – 15 may":["15 апреля – 15 мая","15 aprel – 15 may"],"20 aprel – 20 may":["20 апреля – 20 мая","20 aprel – 20 may"],
+"Chekni tekislab, suv bostirib yoki qatorlab eking.":["Выровняйте чек и сейте по воде или рядовым способом.","Shekti tegislep, suw basıp yamasa qatarlap egiń."],
+"Suv sathini 5–7 sm da ushlab turing.":["Поддерживайте слой воды 5–7 см.","Suw qatlamın 5–7 sm de uslap turıń."],
+"Azotli o'g'it bering, begona o'tlarni yo'qoting.":["Внесите азотное удобрение, удалите сорняки.","Azotlı tıńaytqısh beriń, jat shóplerdi joq etiń."],
+"Tuplanish davri":["Кущение","Túplaniw dáwiri"],"Ikkinchi azotli oziqlantirish bering.":["Проведите вторую азотную подкормку.","Ekinshi azotlı azıqlandırıw beriń."],
+"Ro'vaklash davri":["Выметывание","Shashaqlaw dáwiri"],"Suv sathini doimiy saqlang, chekni quritmang.":["Постоянно держите воду, не осушайте чек.","Suw qatlamın turaqlı saqlań, shekti qurıtpań."],
+"Pirikulyarioz dog'larini tekshiring.":["Проверьте пятна пирикуляриоза.","Pirikulyarioz daqların tekseriń."],
+"Tuproq harorati 10–12°C dan yuqori bo'lishi kerak.":["Температура почвы должна быть выше 10–12°C.","Topıraq temperaturası 10–12°C tan joqarı bolıwı kerek."],
+"Azot va fosforli o'g'it bering, chopiq qiling.":["Внесите азот и фосфор, проведите рыхление.","Azot hám fosforlı tıńaytqısh beriń, shabıq etiń."],
+"Tez o'sish davrida suv va azot muhim.":["В период быстрого роста важны вода и азот.","Tez ósiw dáwirinde suw hám azot áhmiyetli."],
+"Ro'vak chiqarish davri":["Выметывание метёлки","Shashaq shıǵarıw dáwiri"],"Bu davrda sug'orishni kechiktirmang.":["В этот период не откладывайте полив.","Bul dáwirde suwǵarıwdı keshiktirmeń."],
+"Poya parvonasi va ko'sak qurtini tekshiring.":["Проверьте на стеблевого мотылька и совку.","Paqal kóbelegi hám kósek qurtın tekseriń."],
+"Urug'ni 4–5 sm chuqurlikka, egat chetiga eking.":["Сейте на глубину 4–5 см по краю борозды.","Tuqımdı 4–5 sm tereńlikke, egat shetine egiń."],
+"Har uyada bittadan kuchli nihol qoldiring.":["Оставьте в гнезде одно сильное растение.","Hár uyada birden kúshli nál qaldırıń."],
+"Sug'orishni me'yorlang, ortiqcha suv bermang.":["Нормируйте полив, не переувлажняйте.","Suwǵarıwdı normalań, artıqsha suw bermeń."],
+"Meva tugish davri":["Завязывание плодов","Miywe baylaw dáwiri"],"Kaliyli oziqlantirish bering.":["Проведите калийную подкормку.","Kaliylı azıqlandırıw beriń."],
+"Un-shudring va shira bor-yo'qligini tekshiring.":["Проверьте на мучнистую росу и тлю.","Un-shıq hám shıra bar-joqlıǵın tekseriń."],
+"Issiq tuproqqa, 5–6 sm chuqurlikka eking.":["Сейте в прогретую почву на глубину 5–6 см.","Jıllı topıraqqa, 5–6 sm tereńlikke egiń."],
+"Ob-havo":["Погода","Hawa rayı"],"7 kunlik prognoz":["Прогноз на 7 дней","7 kúnlik boljaw"],"Bugun":["Сегодня","Búgin"],"Manba: Open-Meteo":["Источник: Open-Meteo","Derek: Open-Meteo"],
+"Ob-havo yuklanmadi":["Не удалось загрузить погоду","Hawa rayı júklenbedi"],
+"Sovuq xavfi":["Риск заморозков","Suwıq qáwipi"],"Nihollarni yopish yoki tutatish choralarini ko'ring.":["Укройте всходы или проведите дымление.","Nállerdi jabıw yamasa tútin salıw ilajların kóriń."],
+"Kuchli issiq":["Сильная жара","Kúshli ıssılıq"],"Sug'orishni ertalab yoki kechqurun o'tkazing.":["Поливайте рано утром или вечером.","Suwǵarıwdı azanda yamasa keshqurın ótkeriń."],
+"Kuchli yomg'ir":["Сильный дождь","Kúshli jawın"],"Bu kunlarda o'g'it va kimyoviy ishlov bermang.":["В эти дни не вносите удобрения и не проводите обработки.","Bul kúnleri tıńaytqısh hám ximiyalıq islew bermeń."],
+"Kuchli shamol":["Сильный ветер","Kúshli samal"],"Purkash ishlarini qoldiring.":["Отложите опрыскивание.","Búrkiw jumısların qaldırıń."],
+"Yaqin 7 kunda xavfli ob-havo kutilmaydi.":["В ближайшие 7 дней опасной погоды не ожидается.","Jaqın 7 kúnde qáwipli hawa rayı kútilmeydi."],
+"Tuproq tahlili natijasini kiritish":["Ввести результаты анализа почвы","Topıraq analizi nátiyjesin kirgiziw"],"Tuproq tahlili":["Анализ почвы","Topıraq analizi"],
+"Tahlilni o'zgartirish":["Изменить анализ","Analizdi ózgertiw"],
+"Laboratoriya natijasini kiriting. Sho'rlanish darajasi avtomatik aniqlanadi.":["Введите результаты лаборатории. Уровень засоления определится автоматически.","Laboratoriya nátiyjesin kirgiziń. Duzlanıw dárejesi avtomat anıqlanadı."],
+"Sho'rlanish ko'rsatkichi":["Показатель засоления","Duzlanıw kórsetkishi"],"EC, dS/m":["EC, дСм/м","EC, dS/m"],"Quruq qoldiq, %":["Сухой остаток, %","Qurǵaq qaldıq, %"],
+"Qiymat":["Значение","Mánis"],"Gumus, %":["Гумус, %","Gumus, %"],"pH":["pH","pH"],"Saqlash va qo'llash":["Сохранить и применить","Saqlaw hám qollanıw"],
+"Tahlil o'chirildi":["Анализ удалён","Analiz óshirildi"],"Tahlilni o'chirish":["Удалить анализ","Analizdi óshiriw"],
+"Sho'rlanish ko'rsatkichini kiriting.":["Укажите показатель засоления.","Duzlanıw kórsetkishin kirgiziń."],
+"Sizning tuprog'ingiz":["Ваша почва","Sizdiń topıraǵıńız"],"Tahlil bo'yicha sho'rlanish:":["Засоление по анализу:","Analiz boyınsha duzlanıw:"],
+"Ishqoriy tuproq: fosfor va mikroelementlar yomon o'zlashadi. Organik o'g'it va gips qo'llashni ko'rib chiqing.":["Щелочная почва: фосфор и микроэлементы усваиваются плохо. Рассмотрите органику и гипсование.","Siltili topıraq: fosfor hám mikroelementler jaman ózlestiriledi. Organikalıq tıńaytqısh hám gips qollanıwdı oylap kóriń."],
+"Nordon tuproq: ohaklash foydali bo'lishi mumkin.":["Кислая почва: может помочь известкование.","Qıshqıl topıraq: áklew paydalı bolıwı múmkin."],
+"Gumus kam: go'ng, kompost va siderat ekinlar bilan boyiting.":["Мало гумуса: вносите навоз, компост, сейте сидераты.","Gumus az: tezek, kompost hám siderat eginler menen bayıtıń."],
+"Gumus o'rtacha: organik o'g'itni muntazam qo'llang.":["Гумус средний: регулярно вносите органику.","Gumus ortasha: organikalıq tıńaytqıshtı turaqlı qollanıń."],
+"Taxminiy talqin. Aniq tavsiya uchun agrokimyo laboratoriyasi bilan maslahatlashing.":["Ориентировочная оценка. Для точных рекомендаций обратитесь в агрохимическую лабораторию.","Shamalı túsindirme. Anıq usınıs ushın agroximiya laboratoriyası menen másláhátlesiń."],
+"Tahlil saqlandi":["Анализ сохранён","Analiz saqlandı"]
+});
+I18P.push(
+[/^Sho'rlanish darajasi: (.+)$/,"Уровень засоления: $1","Duzlanıw dárejesi: $1"],
+[/^Ob-havo · (.+)$/,"Погода · $1","Hawa rayı · $1"]
+);
+const RCOORD={"Qoraqalpog'iston":[42.46,59.6],"Xorazm":[41.55,60.63],"Buxoro":[39.77,64.42],"Navoiy":[40.1,65.37],"Sirdaryo":[40.49,68.78],"Jizzax":[40.12,67.84],"Andijon":[40.78,72.34],"Farg'ona":[40.39,71.78],"Namangan":[41.0,71.67],"Surxondaryo":[37.22,67.28],"Qashqadaryo":[38.86,65.79],"Toshkent viloyati":[41.0,69.36],"Samarqand":[39.65,66.96]};
+const WX={},WXERR={};
+const WDAY={uz:["Ya","Du","Se","Ch","Pa","Ju","Sh"],ru:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"],kaa:["Ek","Dú","Si","Sá","Pi","Ju","Se"]};
+const WICON={frost:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7FB3E0" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg>',
+heat:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="var(--bad)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+rain:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 15a5 5 0 1 1 9-5 4 4 0 0 1 1 8H7z"/><path d="M8 19l-1 2M12 19l-1 2M16 19l-1 2"/></svg>',
+wind:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></svg>',
+ok:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>'};
+async function getWeather(r){
+if(WX[r])return WX[r];const c=RCOORD[r];if(!c)throw new Error("no coords");
+const u=`https://api.open-meteo.com/v1/forecast?latitude=${c[0]}&longitude=${c[1]}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Asia%2FTashkent&forecast_days=7`;
+const j=await fetch(u).then(x=>{if(!x.ok)throw new Error("wx "+x.status);return x.json()});WX[r]=j.daily;return j.daily}
+function weatherHtml(r,d){
+const days=d.time.map((t,i)=>({t,max:Math.round(d.temperature_2m_max[i]),min:Math.round(d.temperature_2m_min[i]),pr:d.precipitation_sum[i]||0,w:d.wind_speed_10m_max[i]||0}));
+const warn=[];const first=(f)=>days.find(f);
+let x;if(x=first(z=>z.min<=0))warn.push(["frost","Sovuq xavfi",x,`${x.min}°C`,"Nihollarni yopish yoki tutatish choralarini ko'ring."]);
+if(x=first(z=>z.max>=38))warn.push(["heat","Kuchli issiq",x,`${x.max}°C`,"Sug'orishni ertalab yoki kechqurun o'tkazing."]);
+if(x=first(z=>z.pr>=10))warn.push(["rain","Kuchli yomg'ir",x,`${Math.round(x.pr)} mm`,"Bu kunlarda o'g'it va kimyoviy ishlov bermang."]);
+if(x=first(z=>z.w>=45))warn.push(["wind","Kuchli shamol",x,`${Math.round(x.w)} km/h`,"Purkash ishlarini qoldiring."]);
+const wd=WDAY[LANG]||WDAY.uz;
+return `<div class="wxcard"><div class="wxh"><h4>${esc("Ob-havo · "+r)}</h4><span class="eyebrow">7 kunlik prognoz</span></div>
+<div class="wxdays">${days.map((z,i)=>`<div class="wxd ${z.min<=0?"frost":""} ${z.max>=38?"heat":""} ${i===0?"today":""}"><span>${i===0?"Bugun":wd[new Date(z.t+"T12:00:00").getDay()]}</span><b>${z.max}°</b><span class="lo">${z.min}°</span>${z.pr>=0.5?`<span class="pr">${Math.round(z.pr*10)/10}mm</span>`:""}</div>`).join("")}</div>
+<ul class="wxw">${warn.length?warn.map(([k,t,z,v,adv])=>`<li>${WICON[k]}<div><b>${t}</b> · <span>${fmtDate(z.t)}</span> · <span>${v}</span><p>${adv}</p></div></li>`).join(""):`<li>${WICON.ok}<div>Yaqin 7 kunda xavfli ob-havo kutilmaydi.</div></li>`}</ul>
+<span class="wxsrc">Manba: Open-Meteo</span></div>`}
+async function fillWeather(){const r=S.region,box=$("#wx");if(!box)return;
+if(WX[r]){box.innerHTML=weatherHtml(r,WX[r]);return}
+if(WXERR[r]&&Date.now()-WXERR[r]<60000){box.innerHTML="";return}
+box.innerHTML='<div class="skel" style="height:150px"></div>';
+try{const d=await getWeather(r);if(S.region===r&&$("#wx"))$("#wx").innerHTML=weatherHtml(r,d)}
+catch(e){WXERR[r]=Date.now();if($("#wx"))$("#wx").innerHTML=`<div class="wxcard"><span class="wxsrc">Ob-havo yuklanmadi</span></div>`}}
+let SOIL=null;
+function loadSoil(){try{SOIL=JSON.parse(localStorage.getItem("navtop_soil")||"null")}catch(e){SOIL=null}}
+function saveSoil(){try{SOIL?localStorage.setItem("navtop_soil",JSON.stringify(SOIL)):localStorage.removeItem("navtop_soil")}catch(e){}}
+function saltFromSoil(o){const v=+o.val;if(!(v>=0))return null;
+if(o.unit==="ec")return v<2?0:v<4?1:v<8?2:3;
+return v<0.3?0:v<1?1:v<2?2:3}
+const soilSummary=o=>[o.unit==="ec"?`EC ${o.val} dS/m`:`${o.val}%`,o.humus?`${o.humus}% gumus`:"",o.ph?`pH ${o.ph}`:""].filter(Boolean).join(" · ");
+function soilBtn(){return `<div class="soilbtn"><button class="linkbtn" data-soil>${SOIL?"Tahlilni o'zgartirish":"Tuproq tahlili natijasini kiritish"}</button>${SOIL?`<small>${esc(soilSummary(SOIL))}</small>`:""}</div>`}
+function soilCard(){if(!SOIL)return "";const lv=saltFromSoil(SOIL),tips=[];const ph=+SOIL.ph,hu=+SOIL.humus;
+if(ph>=8)tips.push("Ishqoriy tuproq: fosfor va mikroelementlar yomon o'zlashadi. Organik o'g'it va gips qo'llashni ko'rib chiqing.");
+else if(ph&&ph<6)tips.push("Nordon tuproq: ohaklash foydali bo'lishi mumkin.");
+if(hu&&hu<1)tips.push("Gumus kam: go'ng, kompost va siderat ekinlar bilan boyiting.");
+else if(hu&&hu<2)tips.push("Gumus o'rtacha: organik o'g'itni muntazam qo'llang.");
+return `<div class="soilcard rv" style="--i:1"><h4>Sizning tuprog'ingiz</h4><div class="soilsum">${lv!=null?`<span class="pill" style="cursor:default"><span>Tahlil bo'yicha sho'rlanish:</span> <b>${SALT[lv]}</b></span>`:""}${SOIL.ph?`<span class="pill" style="cursor:default">pH ${esc(SOIL.ph)}</span>`:""}${SOIL.humus?`<span class="pill" style="cursor:default"><span>Gumus, %</span> ${esc(SOIL.humus)}</span>`:""}</div>
+${tips.map(t=>`<p class="muted" style="margin:0">${t}</p>`).join("")}<p class="wxsrc" style="margin:0">Taxminiy talqin. Aniq tavsiya uchun agrokimyo laboratoriyasi bilan maslahatlashing.</p></div>`}
+function openSoilForm(){const o=SOIL||{unit:"ec",val:"",humus:"",ph:""};
+$("#layer").innerHTML=`<div class="scrim" id="scrim"><aside class="drawer" role="dialog" aria-modal="true" aria-label="Tuproq tahlili"><div class="dtop"><span class="eyebrow">${esc(S.region)}</span><button class="x" id="closeD" aria-label="Yopish"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<h2>Tuproq tahlili</h2><p style="margin:8px 0 0;color:var(--muted)">Laboratoriya natijasini kiriting. Sho'rlanish darajasi avtomatik aniqlanadi.</p>
+<form class="sform" id="soilf" novalidate>
+<span class="lbl" style="margin:0">Sho'rlanish ko'rsatkichi</span>
+<div class="seg" id="soilUnit" style="grid-template-columns:repeat(2,1fr)"><span class="ind" style="width:calc((100% - 8px)/2);transform:translateX(${o.unit==="ec"?0:100}%)"></span><button type="button" data-sunit="ec" aria-pressed="${o.unit==="ec"}">EC, dS/m</button><button type="button" data-sunit="dry" aria-pressed="${o.unit!=="ec"}">Quruq qoldiq, %</button></div>
+<input type="hidden" id="sfUnit" value="${o.unit}">
+<label>Qiymat<input id="sfVal" type="number" min="0" step="0.01" inputmode="decimal" value="${esc(o.val)}" placeholder="${o.unit==="ec"?"4.5":"0.8"}"></label>
+<div class="two"><label>Gumus, %<input id="sfHum" type="number" min="0" step="0.01" inputmode="decimal" value="${esc(o.humus||"")}" placeholder="1.2"></label>
+<label>pH<input id="sfPh" type="number" min="3" max="11" step="0.1" inputmode="decimal" value="${esc(o.ph||"")}" placeholder="7.8"></label></div>
+<div class="ferr" id="soilErr" role="alert"></div>
+<button class="btn pri" type="submit">Saqlash va qo'llash</button>
+${SOIL?`<button class="btn ghost" type="button" data-soildel>Tahlilni o'chirish</button>`:""}
+</form></aside></div>`;updateBack();haptic("light")}
+document.addEventListener("click",e=>{
+if(e.target.closest("[data-soil]")){openSoilForm();return}
+const u=e.target.closest("[data-sunit]");if(u){const k=u.dataset.sunit;$("#sfUnit").value=k;$("#soilUnit .ind").style.transform=`translateX(${k==="ec"?0:100}%)`;document.querySelectorAll("[data-sunit]").forEach(b=>b.setAttribute("aria-pressed",b===u));$("#sfVal").placeholder=k==="ec"?"4.5":"0.8";haptic("select");return}
+if(e.target.closest("[data-soildel]")){SOIL=null;saveSoil();closeDrawer();renderCond();renderResults();toast(T("Tahlil o'chirildi"));return}
+});
+document.addEventListener("submit",e=>{if(e.target.id!=="soilf")return;e.preventDefault();
+const o={unit:$("#sfUnit").value,val:$("#sfVal").value.trim(),humus:$("#sfHum").value.trim(),ph:$("#sfPh").value.trim(),date:todayISO()};
+const lv=saltFromSoil(o);if(o.val===""||lv==null){$("#soilErr").textContent=T("Sho'rlanish ko'rsatkichini kiriting.");return}
+SOIL=o;saveSoil();S.salt=lv;persist();closeDrawer();renderCond();renderResults();haptic("success");toast(T("Sho'rlanish darajasi: "+SALT[lv]))});
 async function boot(){
-initLang();
+initLang();loadSoil();
 if(IN_TG){document.body.classList.add("tg");tg.ready();tg.expand();applyTgTheme();tg.onEvent("themeChanged",applyTgTheme);tg.BackButton.onClick(onBack);
 try{tg.disableVerticalSwipes&&tg.disableVerticalSwipes()}catch(e){}}
 showLoading();moveInd();
